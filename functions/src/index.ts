@@ -32,6 +32,14 @@ function getMonthAndYear(timestamp: Timestamp) {
 export const onPaymentAdd = firestore
     .document("MY_PAYMENTS/{paymentId}")
     .onCreate(async (snapshot, context) => {
+
+        const enableAnalytics = process.env.ENABLE_ANALYTICS === "true";
+
+        if (!enableAnalytics) {
+            console.log("Analytics aggregation disabled. Skipping...");
+            return;
+        }
+
         const paymentData = snapshot.data() as any;
 
         if (!paymentData) {

@@ -3,7 +3,7 @@ version: 0.0.1
 specVersion: v1beta
 displayName: LoricEdu
 description: Analytics Aggregator for Loric Edu
-icon: ./assets/icon.png
+icon: icon.png
 license: Apache-2.0
 sourceUrl: https://github.com/srikantloric/New-folder--2-
 billingRequired: true
@@ -25,6 +25,11 @@ params:
     label: Firebase Project ID
     description: Project ID where the payments collection exists
     type: string
+  - param: ENABLE_ANALYTICS
+    label: Enable Analytics Aggregation
+    description: Set to true to enable analytics logic, false to disable.
+    type: boolean
+    default: true  
 
 resources:
   - name: onPaymentAdd
@@ -44,3 +49,10 @@ resources:
         resource: projects/${PROJECT_ID}/databases/(default)/documents/MY_PAYMENTS/{paymentId}
       entryPoint: onPaymentDelete
       runtime: nodejs20
+
+roles:
+  - role: datastore.owner
+    reason: The extension needs to update aggregated analytics in Firestore.
+
+  - role: datastore.user
+    reason: The extension needs to read documents from Firestore.  
