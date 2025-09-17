@@ -28,8 +28,13 @@ params:
   - param: ENABLE_ANALYTICS
     label: Enable Analytics Aggregation
     description: Set to true to enable analytics logic, false to disable.
-    type: string
-    default: true  
+    type: select
+    options:
+      - label: Enabled
+        value: true
+      - label: Disabled
+        value: false
+    default: true
 
 resources:
   - name: onPaymentAdd
