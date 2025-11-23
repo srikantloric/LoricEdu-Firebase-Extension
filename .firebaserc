@@ -1,14 +1,13 @@
 {
   "projects": {
-    "default": "birthday-nibha"
+    "prod": "nmnp-school-prod-fd42d",
+    "default": "nmnp-school-prod-fd42d"
   },
   "targets": {},
   "etags": {
-    "birthday-nibha": {
+    "nmnp-school-prod-fd42d": {
       "extensionInstances": {
-        "loric-edu-analytics": "0d19b9949c19ad55b750cd0cd83f96f83ee3597ed8b585f5831a3f8fd73ff1ae",
-        "loric-edu-analytics-nm3j": "9f7bce43881d4e46a63f65cc9807715f8513b750cb6e5449295876fed0b24623",
-        "loric-edu-analytics-rx15": "aa8051c4d10b78ad47191c0e89964fc8135cbdd657e0fcc4209ca6c00ec7b6d9"
+        "loric-edu-analytics": "32b7c6c2aa862c71016e1e76b2b1beef61161cb2ea73a0eb1f7056626e0560d7"
       }
     }
   }
