@@ -1,13 +1,13 @@
 {
   "projects": {
-    "prod": "nmnp-school-prod-fd42d",
-    "default": "nmnp-school-prod-fd42d"
+    "default": "apx-international-dev"
   },
   "targets": {},
   "etags": {
-    "nmnp-school-prod-fd42d": {
+    "apx-international-dev": {
       "extensionInstances": {
-        "loric-edu-analytics": "32b7c6c2aa862c71016e1e76b2b1beef61161cb2ea73a0eb1f7056626e0560d7"
+        "loric-edu-analytics": "8bfef30aba80631b3e3b6c0fd5695babc22db67998f1097ee7fed2ee5e342651",
+        "loric-edu-analytics-7546": "aedf5d6ae5bfcde0a6479caf33bfa07c85cdb3ef87962c54fe8e19bf2fbb1d92"
       }
     }
   }

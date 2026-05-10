@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { Timestamp } from "firebase-admin/firestore";
 
 export type AttendanceStatus =
   | "PRESENT"
@@ -8,12 +9,12 @@ export type AttendanceStatus =
   | "HOLIDAY";
 
 export interface AttendanceEvent {
-  studentId: string;
-  classId: number;
-  date: string; // YYYY-MM-DD
+  userId: string;
+  userType:"STUDENT"|"FACULTY"
+  classId?: string;
+  departmentId?:string
+  date: string;       // YYYY-MM-DD
   status: AttendanceStatus;
-  timestamp: number;
-  comment?: string;
+  timestamp: Timestamp;
   source: "MANUAL" | "RFID" | "AI";
 }
-

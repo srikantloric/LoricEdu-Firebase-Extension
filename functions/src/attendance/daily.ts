@@ -1,24 +1,51 @@
 /* eslint-disable */
 import { Transaction, DocumentReference } from "firebase-admin/firestore";
-import { AttendanceEvent, AttendanceStatus } from "./types";
+import { AttendanceEvent } from "./types";
 
 export async function updateDailyAttendance(
   tx: Transaction,
   dailyRef: DocumentReference,
-  event: AttendanceEvent,
-  oldStatus?: AttendanceStatus | null
+  event: AttendanceEvent
 ) {
-  const { studentId, classId, date, status, timestamp } = event;
+  const {
+    userId,
+    userType,
+    classId,
+    departmentId,
+    date,
+    status,
+    timestamp,
+  } = event;
 
+  const basePayload: any = {
+    userId,
+    userType,
+    date,
+    status,
+    present: status === "PRESENT",
+  };
+
+
+
+  // Student-specific
+  if (userType === "STUDENT") {
+    basePayload.studentId = userId
+    basePayload.classId = classId;
+  }
+
+  // Faculty-specific
+  if (userType === "FACULTY") {
+    basePayload.facultyId = userId
+    basePayload.departmentId = departmentId;
+  }
+
+  console.log("Update Daily Attendance:", basePayload);
+  
   if (status !== "PRESENT") {
     tx.set(
       dailyRef,
       {
-        studentId,
-        classId,
-        date,
-        status,
-        present: false,
+        ...basePayload,
         firstIn: null,
         lastOut: null,
       },
@@ -27,22 +54,17 @@ export async function updateDailyAttendance(
     return;
   }
 
-  // PRESENT
-  const prev = await tx.get(dailyRef);
 
-  if (!prev.exists) {
+  const snap = await tx.get(dailyRef);
+  if (!snap.exists) {
     tx.set(dailyRef, {
-      studentId,
-      classId,
-      date,
-      status: "PRESENT",
-      present: true,
+      ...basePayload,
       firstIn: timestamp,
       lastOut: timestamp,
     });
   } else {
     tx.update(dailyRef, {
-      lastOut: Math.max(prev.data()!.lastOut || 0, timestamp),
+      lastOut: timestamp,
     });
   }
 }
